@@ -506,6 +506,8 @@ export class ExchangeRateDataService {
 
     // Add derived currencies
     currencies.push('USX');
+    // Add EUR currency for display
+    currencies.push('EUR');
 
     for (const { currency, rootCurrency } of DERIVED_CURRENCIES) {
       if (currencies.includes(currency) || currencies.includes(rootCurrency)) {
