@@ -69,7 +69,7 @@
         *matHeaderCellDef
         class="d-none d-lg-table-cell justify-content-end px-1"
         mat-header-cell
-        mat-sort-header
+        mat-sort-header="quantity"
       >
         <ng-container i18n>Quantity</ng-container>
       </th>
@@ -80,8 +80,8 @@
       >
         <div class="d-flex justify-content-end">
           <gf-value
-            [isCurrency]="true"
             [locale]="locale"
+            [precision]="0"
             [value]="isLoading ? undefined : element.quantity"
           />
         </div>
