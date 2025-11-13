@@ -74,6 +74,7 @@ export class GfHoldingsTableComponent implements OnChanges, OnDestroy {
 
     if (this.hasPermissionToShowQuantities) {
       this.displayedColumns.push('quantity');
+      this.displayedColumns.push('unitCostPrice');
     }
 
     if (this.hasPermissionToShowValues) {
@@ -93,6 +94,24 @@ export class GfHoldingsTableComponent implements OnChanges, OnDestroy {
     this.dataSource = new MatTableDataSource(this.holdings);
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
+    this.dataSource.sortingDataAccessor = (
+      data: PortfolioPosition,
+      sortHeaderId: string
+    ) => {
+      if (sortHeaderId === 'unitCostPrice') {
+        return data.quantity && data.quantity !== 0
+          ? data.investment / data.quantity
+          : 0;
+      }
+      const value = data[sortHeaderId as keyof PortfolioPosition];
+      if (value instanceof Date) {
+        return value.getTime();
+      }
+      if (typeof value === 'number' || typeof value === 'string') {
+        return value;
+      }
+      return String(value ?? '');
+    };
 
     if (this.holdings) {
       this.isLoading = false;

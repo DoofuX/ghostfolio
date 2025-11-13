@@ -88,6 +88,35 @@
       </td>
     </ng-container>
 
+    <ng-container matColumnDef="unitCostPrice">
+      <th
+        *matHeaderCellDef
+        class="d-none d-lg-table-cell justify-content-end px-1"
+        mat-header-cell
+        mat-sort-header="unitCostPrice"
+      >
+        <ng-container i18n>Unit Cost</ng-container>
+      </th>
+      <td
+        *matCellDef="let element"
+        class="d-none d-lg-table-cell px-1"
+        mat-cell
+      >
+        <div class="d-flex justify-content-end">
+          <gf-value
+            [isCurrency]="true"
+            [locale]="locale"
+            [unit]="element.currency"
+            [value]="
+              isLoading || !element.quantity || element.quantity === 0
+                ? undefined
+                : element.investment / element.quantity
+            "
+          />
+        </div>
+      </td>
+    </ng-container>
+
     <ng-container matColumnDef="valueInBaseCurrency">
       <th
         *matHeaderCellDef
